@@ -2,7 +2,7 @@ name: Tistory RSS to GitHub
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # 매 정각마다 실행 (주기 조정 가능)
+    - cron: '* * * * *'  # 매 정각마다 실행 (주기 조정 가능)
 
 jobs:
   update-blog:
