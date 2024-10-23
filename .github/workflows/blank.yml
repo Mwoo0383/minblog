@@ -26,6 +26,10 @@ jobs:
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        
+        # RSS 피드에서 제목 추출
+        title=$(xmllint --xpath 'string(//item/title[1])' tistory_feed.xml)
+
         git add tistory_feed.xml
-        git diff --cached --quiet || git commit -m "Updated Tistory RSS feed at $(date +'%Y-%m-%d %H:%M:%S')"
+        git diff --cached --quiet || git commit -m "Updated Tistory RSS feed: $title"
         git push || echo "No changes to push"
