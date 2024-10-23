@@ -1,0 +1,21 @@
+name: Tistory RSS to GitHub
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'  # 매 정각마다 실행 (주기 조정 가능)
+
+jobs:
+  update-blog:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Fetch Tistory RSS feed
+      run: curl -s https://mw0606.tistory.com/rss > tistory_feed.xml
+
+    - name: Commit RSS feed changes
+      run: |
+        git add tistory_feed.xml
+        git diff --cached --quiet || git commit -m "Updated Tistory RSS feed at $(date)"
+        git push
